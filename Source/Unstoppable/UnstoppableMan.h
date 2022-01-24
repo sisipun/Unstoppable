@@ -16,7 +16,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* FirstPersonCamera;
 
+	UPROPERTY(EditAnywhere, Category = "Movement")
+		float MovementSpeed;
+
 	AUnstoppableMan();
+
+	void Tick(float DeltaSeconds) override;
 
 	void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 };
