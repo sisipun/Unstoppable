@@ -8,11 +8,21 @@ AUnstoppableMan::AUnstoppableMan()
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
 	FirstPersonCamera->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCamera->bUsePawnControlRotation = true;
+
+	HandsMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("HandsMesh"));
+	HandsMesh->SetOnlyOwnerSee(true);
+	HandsMesh->SetupAttachment(FirstPersonCamera);
+	HandsMesh->CastShadow = false;
+	HandsMesh->bCastDynamicShadow = false;
+
+	bDead = false;
 }
 
 void AUnstoppableMan::Tick(float DeltaSeconds)
 {
-	AddMovementInput(GetActorForwardVector(), 1.0f);
+	if (!bDead) {
+		AddMovementInput(GetActorForwardVector(), 1.0f);
+	}
 }
 
 void AUnstoppableMan::SetupPlayerInputComponent(UInputComponent* InputComponent)
@@ -22,6 +32,8 @@ void AUnstoppableMan::SetupPlayerInputComponent(UInputComponent* InputComponent)
 
 	InputComponent->BindAction("Crouch", IE_Pressed, this, &AUnstoppableMan::Crouch);
 	InputComponent->BindAction("Crouch", IE_Released, this, &AUnstoppableMan::UnCrouch);
+
+	InputComponent->BindAction("Dead", IE_Pressed, this, &AUnstoppableMan::Dead);
 
 	InputComponent->BindAxis("LookRight", this, &AUnstoppableMan::AddControllerYawInput);
 	InputComponent->BindAxis("LookUp", this, &AUnstoppableMan::AddControllerPitchInput);
@@ -35,4 +47,12 @@ void AUnstoppableMan::Crouch()
 void AUnstoppableMan::UnCrouch()
 {
 	ACharacter::UnCrouch(false);
+}
+
+void AUnstoppableMan::Dead()
+{
+	if (!bDead) {
+		bDead = true;
+		HandsMesh->SetSimulatePhysics(true);
+	}
 }
