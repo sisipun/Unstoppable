@@ -21,6 +21,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* FirstPersonCamera;
 
+	UFUNCTION()
+		void OnBeginOverlap(
+			UPrimitiveComponent* HitComponent,
+			AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent,
+			int32 OtherBodyIndex,
+			bool bFromSweep,
+			const FHitResult& SweepResult
+		);
+
 	AUnstoppableMan();
 
 	void Tick(float DeltaSeconds) override;

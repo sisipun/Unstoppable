@@ -4,6 +4,7 @@ AUnstoppableMan::AUnstoppableMan()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->InitCapsuleSize(55.0f, 96.0f);
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AUnstoppableMan::OnBeginOverlap);
 
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
 	FirstPersonCamera->SetupAttachment(GetCapsuleComponent());
@@ -14,6 +15,7 @@ AUnstoppableMan::AUnstoppableMan()
 	HandsMesh->SetupAttachment(FirstPersonCamera);
 	HandsMesh->CastShadow = false;
 	HandsMesh->bCastDynamicShadow = false;
+
 
 	bDead = false;
 }
@@ -37,6 +39,25 @@ void AUnstoppableMan::SetupPlayerInputComponent(UInputComponent* InputComponent)
 
 	InputComponent->BindAxis("LookRight", this, &AUnstoppableMan::AddControllerYawInput);
 	InputComponent->BindAxis("LookUp", this, &AUnstoppableMan::AddControllerPitchInput);
+}
+
+void AUnstoppableMan::OnBeginOverlap(
+	UPrimitiveComponent* HitComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent,
+	int32 OtherBodyIndex,
+	bool bFromSweep,
+	const FHitResult& SweepResult
+)
+{
+	if (bDead)
+	{
+		return;
+	}
+	if (OtherActor->ActorHasTag(TEXT("Enemy")))
+	{
+		Dead();
+	}
 }
 
 void AUnstoppableMan::Crouch()
