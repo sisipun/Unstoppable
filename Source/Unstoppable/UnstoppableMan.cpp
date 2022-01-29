@@ -50,11 +50,12 @@ void AUnstoppableMan::OnBeginOverlap(
 	const FHitResult& SweepResult
 )
 {
+	UE_LOG(LogTemp, Warning, TEXT("Col"));
 	if (bDead)
 	{
 		return;
 	}
-	if (OtherActor->ActorHasTag(TEXT("Enemy")))
+	if (OtherActor->ActorHasTag(TEXT("Enemy")) || OtherActor->ActorHasTag(TEXT("Obstacle")))
 	{
 		Dead();
 	}
