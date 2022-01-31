@@ -52,6 +52,7 @@ void AUnstoppableMan::SetupPlayerInputComponent(UInputComponent* InputComponent)
 
 	InputComponent->BindAxis("LookRight", this, &AUnstoppableMan::AddControllerYawInput);
 	InputComponent->BindAxis("LookUp", this, &AUnstoppableMan::AddControllerPitchInput);
+	InputComponent->BindAxis("Dash", this, &AUnstoppableMan::Dash);
 }
 
 void AUnstoppableMan::OnBeginOverlap(
@@ -82,6 +83,14 @@ void AUnstoppableMan::Crouch()
 void AUnstoppableMan::UnCrouch()
 {
 	ACharacter::UnCrouch(false);
+}
+
+void AUnstoppableMan::Dash(float Scale)
+{
+	if (Scale != 0)
+	{
+		LaunchCharacter(GetActorRightVector() * Scale * DashSpeed, false, false);
+	}
 }
 
 void AUnstoppableMan::Dead()

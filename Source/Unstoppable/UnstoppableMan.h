@@ -18,6 +18,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* FirstPersonCamera;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement")
+		float DashSpeed;
+
 	UFUNCTION()
 		void OnBeginOverlap(
 			UPrimitiveComponent* HitComponent,
@@ -38,6 +41,8 @@ private:
 	void Crouch();
 
 	void UnCrouch();
+
+	void Dash(float Scale);
 
 	void Dead();
 
