@@ -1,4 +1,5 @@
 #include "Obstacle.h"
+#include "Tags.h"
 
 AObstacle::AObstacle()
 {
@@ -7,5 +8,7 @@ AObstacle::AObstacle()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Collider);
+
+	Tags.Add(Tags::OBSTACLE_TAG);
 }
 

@@ -2,10 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Character.h"
 #include "UnstoppableMan.generated.h"
 
@@ -43,10 +40,6 @@ private:
 	void UnCrouch();
 
 	void Dead();
-
-	void MoveX(float Scale);
-
-	void MoveY(float Scale);
 
 	bool bDead;
 };

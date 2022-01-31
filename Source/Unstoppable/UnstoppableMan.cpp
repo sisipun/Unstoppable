@@ -1,10 +1,18 @@
- #include "UnstoppableMan.h"
+#include "UnstoppableMan.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Tags.h"
 
 AUnstoppableMan::AUnstoppableMan()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->InitCapsuleSize(55.0f, 96.0f);
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AUnstoppableMan::OnBeginOverlap);
+
+	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
+	GetCharacterMovement()->NavAgentProps.bCanJump = true;
+	GetCharacterMovement()->NavAgentProps.bCanWalk = true;
 
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
 	FirstPersonCamera->SetupAttachment(GetCapsuleComponent());
@@ -16,12 +24,15 @@ AUnstoppableMan::AUnstoppableMan()
 	HandsMesh->CastShadow = false;
 	HandsMesh->bCastDynamicShadow = false;
 
+	Tags.Add(Tags::PLAYER_TAG);
 
 	bDead = false;
 }
 
 void AUnstoppableMan::Tick(float DeltaSeconds)
 {
+	Super::Tick(DeltaSeconds);
+
 	if (!bDead) {
 		AddMovementInput(GetActorForwardVector(), 1.0f);
 	}
@@ -29,6 +40,8 @@ void AUnstoppableMan::Tick(float DeltaSeconds)
 
 void AUnstoppableMan::SetupPlayerInputComponent(UInputComponent* InputComponent)
 {
+	Super::SetupPlayerInputComponent(InputComponent);
+
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
@@ -55,7 +68,7 @@ void AUnstoppableMan::OnBeginOverlap(
 	{
 		return;
 	}
-	if (OtherActor->ActorHasTag(TEXT("Enemy")) || OtherActor->ActorHasTag(TEXT("Obstacle")))
+	if (OtherActor->ActorHasTag(Tags::ENEMY_TAG) || OtherActor->ActorHasTag(Tags::OBSTACLE_TAG))
 	{
 		Dead();
 	}
