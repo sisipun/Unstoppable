@@ -31,11 +31,13 @@ public:
 			const FHitResult& SweepResult
 		);
 
+public:
 	AUnstoppableMan();
 
 	void Tick(float DeltaSeconds) override;
 
 	void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
+
 private:
 
 	void Crouch();

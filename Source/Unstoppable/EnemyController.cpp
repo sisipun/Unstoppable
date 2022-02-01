@@ -1,17 +1,41 @@
 #include "EnemyController.h"
+#include "BehaviorTree/BlackboardData.h"
 #include "EngineUtils.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 
-void AEnemyController::Tick(float DeltaSeconds)
+#include "Enemy.h"
+
+AEnemyController::AEnemyController()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Pos"));
-	AActor* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-	if (Player)
+	PrimaryActorTick.bCanEverTick = false;
+
+	BehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("Behavior Tree"));
+	BlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("Blackboard"));
+
+	TargetPawnKey = "Target";
+}
+
+void AEnemyController::OnPossess(APawn* Pawn)
+{
+	Super::OnPossess(Pawn);
+
+	AEnemy* Enemy = Cast<AEnemy>(Pawn);
+	if (Enemy)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Play"));
-		MoveToActor(Player);
+		UBlackboardData* BlackboardData = Enemy->BehaviorTree->BlackboardAsset;
+		if (BlackboardData)
+		{
+			BlackboardComponent->InitializeBlackboard(*BlackboardData);
+		}
+
+		BehaviorTreeComponent->StartTree(*Enemy->BehaviorTree);
 	}
+}
+
+void AEnemyController::OnSeeTarget(APawn* Target)
+{
+	BlackboardComponent->SetValueAsObject(TargetPawnKey, Target);
 }
 

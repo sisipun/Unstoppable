@@ -64,7 +64,6 @@ void AUnstoppableMan::OnBeginOverlap(
 	const FHitResult& SweepResult
 )
 {
-	UE_LOG(LogTemp, Warning, TEXT("Col"));
 	if (bDead)
 	{
 		return;
@@ -87,7 +86,7 @@ void AUnstoppableMan::UnCrouch()
 
 void AUnstoppableMan::Dash(float Scale)
 {
-	if (Scale != 0)
+	if (Scale != 0.0f)
 	{
 		LaunchCharacter(GetActorRightVector() * Scale * DashSpeed, false, false);
 	}
