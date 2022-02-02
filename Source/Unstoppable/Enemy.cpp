@@ -1,13 +1,14 @@
 #include "Enemy.h"
 #include "EnemyController.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Tags.h"
 #include "UnstoppableMan.h"
 
 AEnemy::AEnemy()
 {
 	AIControllerClass = AEnemyController::StaticClass();
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -30,6 +31,19 @@ void AEnemy::BeginPlay()
 	}
 }
 
+void AEnemy::Tick(float DeltaSeconds)
+{
+	if (Target && !PawnSensingComponent->CouldSeePawn(Target))
+	{
+		Target = nullptr;
+		AEnemyController* Controller = Cast<AEnemyController>(GetController());
+		if (Controller)
+		{
+			Controller->OnLostTarget();
+		}
+	} 
+}
+
 void AEnemy::OnDetectPawn(APawn* Pawn)
 {
 	AUnstoppableMan* Player = Cast<AUnstoppableMan>(Pawn);
@@ -38,7 +52,8 @@ void AEnemy::OnDetectPawn(APawn* Pawn)
 		AEnemyController* Controller = Cast<AEnemyController>(GetController());
 		if (Controller)
 		{
-			Controller->OnSeeTarget(Player);
+			Target = Pawn;
+			Controller->OnDetectTarget(Pawn);
 		}
 	}
 }

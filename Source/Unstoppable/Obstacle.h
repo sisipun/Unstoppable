@@ -12,7 +12,6 @@ class UNSTOPPABLE_API AObstacle : public AActor
 	GENERATED_BODY()
 
 public:
-
 	UPROPERTY(VisibleAnywhere, BLueprintReadOnly, Category = "Collider")
 		UBoxComponent* Collider;
 

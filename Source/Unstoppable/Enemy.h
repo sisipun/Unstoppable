@@ -20,9 +20,15 @@ public:
 
 	UFUNCTION()
 		void OnDetectPawn(APawn* Pawn);
+
 public:
 	AEnemy();
 
 	void BeginPlay() override;
+
+	void Tick(float DelatSeconds) override;
+
+private:
+	APawn* Target = nullptr;
 
 };

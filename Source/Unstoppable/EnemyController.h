@@ -10,6 +10,7 @@ UCLASS()
 class UNSTOPPABLE_API AEnemyController : public AAIController
 {
 	GENERATED_BODY()
+
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 		UBehaviorTreeComponent* BehaviorTreeComponent;
@@ -25,5 +26,7 @@ public:
 
 	void OnPossess(APawn* Pawn) override;
 	
-	void OnSeeTarget(APawn* Target);
+	void OnDetectTarget(APawn* Target);
+
+	void OnLostTarget();
 };

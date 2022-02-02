@@ -34,8 +34,12 @@ void AEnemyController::OnPossess(APawn* Pawn)
 	}
 }
 
-void AEnemyController::OnSeeTarget(APawn* Target)
+void AEnemyController::OnDetectTarget(APawn* Target)
 {
 	BlackboardComponent->SetValueAsObject(TargetPawnKey, Target);
 }
 
+void AEnemyController::OnLostTarget()
+{
+	BlackboardComponent->ClearValue(TargetPawnKey);
+}
