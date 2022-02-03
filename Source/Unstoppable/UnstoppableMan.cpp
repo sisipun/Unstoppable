@@ -2,6 +2,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/PlayerState.h"
 #include "Tags.h"
 
 AUnstoppableMan::AUnstoppableMan()
@@ -36,6 +37,8 @@ void AUnstoppableMan::Tick(float DeltaSeconds)
 	if (!bDead) {
 		AddMovementInput(GetActorForwardVector(), 1.0f);
 	}
+
+	GetPlayerState()->Score += 100 * DeltaSeconds;
 }
 
 void AUnstoppableMan::SetupPlayerInputComponent(UInputComponent* InputComponent)
