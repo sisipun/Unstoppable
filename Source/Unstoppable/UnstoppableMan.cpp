@@ -102,3 +102,8 @@ void AUnstoppableMan::Dead()
 		HandsMesh->SetSimulatePhysics(true);
 	}
 }
+
+bool AUnstoppableMan::IsDead()
+{
+	return bDead;
+}

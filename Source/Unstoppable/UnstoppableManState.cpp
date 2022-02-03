@@ -1,5 +1,5 @@
 #include "UnstoppableManState.h"
-
+#include "UnstoppableMan.h"
 
 AUnstoppableManState::AUnstoppableManState()
 {
@@ -8,6 +8,9 @@ AUnstoppableManState::AUnstoppableManState()
 
 void AUnstoppableManState::Tick(float DeltaSeconds)
 {
-	PlayerScore += (DeltaSeconds * PlayerScorePerSecond);
-	UE_LOG(LogTemp, Warning, TEXT("Score: %f"), PlayerScore);
+	AUnstoppableMan* Player = Cast<AUnstoppableMan>(GetPawn());
+	if (Player && !Player->IsDead()) {
+		PlayerScore += (DeltaSeconds * PlayerScorePerSecond);
+		UE_LOG(LogTemp, Warning, TEXT("Score: %f"), PlayerScore);
+	}
 }

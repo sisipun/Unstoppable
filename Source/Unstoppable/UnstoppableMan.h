@@ -38,6 +38,8 @@ public:
 
 	void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 
+	bool IsDead();
+
 private:
 
 	void Crouch();
