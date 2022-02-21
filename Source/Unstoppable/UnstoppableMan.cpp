@@ -1,8 +1,11 @@
 #include "UnstoppableMan.h"
+#include "Blueprint/UserWidget.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerState.h"
+
+#include "Booster.h"
 #include "Tags.h"
 
 AUnstoppableMan::AUnstoppableMan()
@@ -28,6 +31,17 @@ AUnstoppableMan::AUnstoppableMan()
 	Tags.Add(Tags::PLAYER_TAG);
 
 	bDead = false;
+}
+
+void AUnstoppableMan::BeginPlay()
+{
+	Super::BeginPlay();
+	if (HudWidgetClass != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("CLASS"));
+		HudWidget = CreateWidget(GetWorld(), HudWidgetClass);
+		HudWidget->AddToViewport();
+	}
 }
 
 void AUnstoppableMan::Tick(float DeltaSeconds)
@@ -74,6 +88,15 @@ void AUnstoppableMan::OnBeginOverlap(
 	if (OtherActor->ActorHasTag(Tags::ENEMY_TAG) || OtherActor->ActorHasTag(Tags::OBSTACLE_TAG))
 	{
 		Dead();
+	}
+	if (OtherActor->ActorHasTag(Tags::BOOSTER_TAG))
+	{
+		if (OtherActor->ActorHasTag(Tags::JUMP_TAG))
+		{
+			LaunchCharacter(GetActorUpVector() * Cast<ABooster>(OtherActor)->Power, false, false);
+			OtherActor->Destroy();
+			UE_LOG(LogTemp, Warning, TEXT("JUMP"));
+		}
 	}
 }
 

@@ -12,10 +12,10 @@ class UNSTOPPABLE_API AObstacle : public AActor
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BLueprintReadOnly, Category = "Collider")
+	UPROPERTY(VisibleAnywhere, BLueprintReadOnly, Category = "Body")
 		UBoxComponent* Collider;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
 		UStaticMeshComponent* Mesh;
 
 public:

@@ -12,8 +12,11 @@ class UNSTOPPABLE_API AUnstoppableMan : public ACharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
 		USkeletalMeshComponent* HandsMesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "HUD")
+		TSubclassOf<UUserWidget> HudWidgetClass;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* FirstPersonCamera;
@@ -40,8 +43,10 @@ public:
 
 	bool IsDead();
 
-private:
+protected:
+	void BeginPlay() override;
 
+private:
 	void Crouch();
 
 	void UnCrouch();
@@ -49,6 +54,10 @@ private:
 	void Dash(float Scale);
 
 	void Dead();
+
+private:
+
+	UUserWidget* HudWidget;
 
 	bool bDead;
 };
