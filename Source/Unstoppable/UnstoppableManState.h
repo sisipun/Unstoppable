@@ -16,8 +16,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
 		float PlayerScore;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
+		int Coins;
+
 public:
 	AUnstoppableManState();
 
 	void Tick(float DeltaSeconds) override;
+
+	void AddCoin();
 };

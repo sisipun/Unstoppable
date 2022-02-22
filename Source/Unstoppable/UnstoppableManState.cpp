@@ -4,6 +4,8 @@
 AUnstoppableManState::AUnstoppableManState()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	Coins = 0;
+	PlayerScore = 0.0f;
 }
 
 void AUnstoppableManState::Tick(float DeltaSeconds)
@@ -12,4 +14,9 @@ void AUnstoppableManState::Tick(float DeltaSeconds)
 	if (Player && !Player->IsDead()) {
 		PlayerScore += (DeltaSeconds * PlayerScorePerSecond);
 	}
+}
+
+void AUnstoppableManState::AddCoin()
+{
+	Coins++;
 }

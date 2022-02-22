@@ -7,6 +7,7 @@
 
 #include "Booster.h"
 #include "Tags.h"
+#include "UnstoppableManState.h"
 
 AUnstoppableMan::AUnstoppableMan()
 {
@@ -95,8 +96,13 @@ void AUnstoppableMan::OnBeginOverlap(
 		{
 			LaunchCharacter(GetActorUpVector() * Cast<ABooster>(OtherActor)->Power, false, false);
 			OtherActor->Destroy();
-			UE_LOG(LogTemp, Warning, TEXT("JUMP"));
 		}
+	}
+	if (OtherActor->ActorHasTag(Tags::COIN_TAG))
+	{
+		AUnstoppableManState* State = Cast<AUnstoppableManState>(GetPlayerState());
+		State->AddCoin();
+		OtherActor->Destroy();
 	}
 }
 
