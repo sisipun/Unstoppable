@@ -90,20 +90,6 @@ void AUnstoppableMan::OnBeginOverlap(
 	{
 		Dead();
 	}
-	if (OtherActor->ActorHasTag(Tags::BOOSTER_TAG))
-	{
-		if (OtherActor->ActorHasTag(Tags::JUMP_TAG))
-		{
-			LaunchCharacter(GetActorUpVector() * Cast<ABooster>(OtherActor)->Power, false, false);
-			OtherActor->Destroy();
-		}
-	}
-	if (OtherActor->ActorHasTag(Tags::COIN_TAG))
-	{
-		AUnstoppableManState* State = Cast<AUnstoppableManState>(GetPlayerState());
-		State->AddCoin();
-		OtherActor->Destroy();
-	}
 }
 
 void AUnstoppableMan::Crouch()

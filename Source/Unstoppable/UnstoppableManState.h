@@ -20,9 +20,12 @@ public:
 		int Coins;
 
 public:
+	UFUNCTION(BlueprintCallable)
+		void AddCoin();
+
+public:
 	AUnstoppableManState();
 
 	void Tick(float DeltaSeconds) override;
 
-	void AddCoin();
 };
