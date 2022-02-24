@@ -19,6 +19,12 @@ AUnstoppableMan::AUnstoppableMan()
 	GetCharacterMovement()->NavAgentProps.bCanJump = true;
 	GetCharacterMovement()->NavAgentProps.bCanWalk = true;
 
+	GetCharacterMovement()->GravityScale = 2.0f;
+	GetCharacterMovement()->MaxWalkSpeed = 1024.0f;
+	GetCharacterMovement()->MaxWalkSpeedCrouched = 820.0f;
+	GetCharacterMovement()->JumpZVelocity = 1024.0f;
+	GetCharacterMovement()->AirControl = 0.4f;
+
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
 	FirstPersonCamera->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCamera->bUsePawnControlRotation = true;
