@@ -23,7 +23,7 @@ AUnstoppableMan::AUnstoppableMan()
 	GetCharacterMovement()->MaxWalkSpeed = 1024.0f;
 	GetCharacterMovement()->MaxWalkSpeedCrouched = 820.0f;
 	GetCharacterMovement()->JumpZVelocity = 1024.0f;
-	GetCharacterMovement()->AirControl = 0.4f;
+	GetCharacterMovement()->AirControl = 0.6f;
 
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
 	FirstPersonCamera->SetupAttachment(GetCapsuleComponent());

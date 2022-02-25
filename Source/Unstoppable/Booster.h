@@ -18,9 +18,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
 		UStaticMeshComponent* Mesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Power")
-		float Power;
-
 public:
 	ABooster();
 };
