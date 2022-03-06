@@ -6,6 +6,7 @@
 #include "Components/ArrowComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "EngineUtils.h"
 #include "GameFramework/Actor.h"
 #include "Tile.generated.h"
 
@@ -23,6 +24,18 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
 		UArrowComponent* AttachPoint;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body/Lines")
+		UArrowComponent* LeftLine;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body/Lines")
+		UArrowComponent* MiddleLine;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body/Lines")
+		UArrowComponent* RightLine;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body/Lines")
+		TArray<UArrowComponent*> Lines;
 
 public:
 	UFUNCTION()
