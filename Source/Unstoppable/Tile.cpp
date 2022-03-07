@@ -10,24 +10,31 @@ ATile::ATile()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	GenerateTileCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	AttachPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("Attach Point"));
-	LeftLine = CreateDefaultSubobject<UArrowComponent>(TEXT("Left Line"));
-	MiddleLine = CreateDefaultSubobject<UArrowComponent>(TEXT("Middle Line"));
-	RightLine = CreateDefaultSubobject<UArrowComponent>(TEXT("Right Line"));
 
 	Mesh->SetupAttachment(RootComponent);
 	GenerateTileCollider->SetupAttachment(Mesh);
 	AttachPoint->SetupAttachment(Mesh);
-	LeftLine->SetupAttachment(Mesh);
-	MiddleLine->SetupAttachment(Mesh);
-	RightLine->SetupAttachment(Mesh);
-
-	Lines.Add(LeftLine);
-	Lines.Add(MiddleLine);
-	Lines.Add(RightLine);
 
 	GenerateTileCollider->OnComponentBeginOverlap.AddDynamic(this, &ATile::OnBeginOverlap);
 
 	Tags.Add(Tags::TILE_TAG);
+}
+
+void ATile::BeginPlay()
+{
+	const TSet<UActorComponent*> Components = GetComponents();
+	for (UActorComponent* Component : Components)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("COMP2"));
+		UArrowComponent* SpawnPoint = Cast<UArrowComponent>(Component);
+		if (SpawnPoint && SpawnPoint != AttachPoint)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("SPAWN2"));
+			SpawnPoints.Add(SpawnPoint);
+		}
+	}
+
+	Super::BeginPlay();
 }
 
 void ATile::OnBeginOverlap(
