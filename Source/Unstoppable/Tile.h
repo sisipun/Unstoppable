@@ -16,17 +16,20 @@ class UNSTOPPABLE_API ATile : public AActor
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
+	UPROPERTY(BlueprintReadOnly, Category = "Body")
 		UBoxComponent* GenerateTileCollider;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
+	UPROPERTY(BlueprintReadOnly, Category = "Body")
 		UStaticMeshComponent* Mesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
+	UPROPERTY(BlueprintReadOnly, Category = "Body")
 		UArrowComponent* AttachPoint;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Body")
+	UPROPERTY(BlueprintReadOnly, Category = "Spawn")
 		TArray<UArrowComponent*> SpawnPoints;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Spawn")
+		TArray<TSubclassOf<AActor>> SpawnCollectableTypes;
 
 public:
 	UFUNCTION()

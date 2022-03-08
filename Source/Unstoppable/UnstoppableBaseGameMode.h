@@ -12,6 +12,9 @@ class UNSTOPPABLE_API AUnstoppableBaseGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Tiles")
+		TArray<TSubclassOf<ATile>> TileTypes;
+
 	UPROPERTY(BlueprintReadOnly, Category = "Tiles")
 		TArray<ATile*> Tiles;
 
