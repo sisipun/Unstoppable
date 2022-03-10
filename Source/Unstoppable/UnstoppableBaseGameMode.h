@@ -15,13 +15,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Tiles")
 		TArray<TSubclassOf<ATile>> TileTypes;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Tiles")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tiles")
 		TArray<ATile*> Tiles;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Tiles")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Tiles")
 		ATile* FirstTile;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Tiles")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Tiles")
 		ATile* LastTile;
 
 public:
