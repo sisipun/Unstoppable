@@ -50,8 +50,9 @@ void ATile::OnBeginOverlap(
 	if (Player)
 	{
 		AUnstoppableBaseGameMode* GameMode = Cast<AUnstoppableBaseGameMode>(GetWorld()->GetAuthGameMode());
-		if (GameMode)
+		if (!IsPassed && GameMode)
 		{
+			IsPassed = true;
 			GameMode->SpawnTile();
 		}
 	}

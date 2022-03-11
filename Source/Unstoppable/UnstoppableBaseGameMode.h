@@ -15,14 +15,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Tiles")
 		TArray<TSubclassOf<ATile>> TileTypes;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tiles")
+	UPROPERTY(BlueprintReadOnly, Category = "Tiles")
 		TArray<ATile*> Tiles;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Tiles")
+	UPROPERTY(BlueprintReadWrite, Category = "Tiles")
 		ATile* FirstTile;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Tiles")
+	UPROPERTY(BlueprintReadWrite, Category = "Tiles")
 		ATile* LastTile;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Tiles")
+		int32 MaxSpawnedTiles;
 
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Tiles")

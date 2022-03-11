@@ -47,4 +47,7 @@ public:
 
 protected:
 	void BeginPlay() override;
+
+private:
+	bool IsPassed;
 };
